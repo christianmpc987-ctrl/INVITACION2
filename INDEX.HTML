@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una aventura para dos ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-dark: #090714;
+    --card-bg: rgba(22, 18, 38, 0.65);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --accent-purple: #a855f7;
+    --accent-pink: #ec4899;
+    --accent-rose: #f43f5e;
+    --accent-glow: rgba(236, 72, 153, 0.35);
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.8) 0%, transparent 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 20px 16px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pantalla {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 40px);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn .6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pantalla.activa {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================= INICIO ================= */
+.inicio {
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+    font-size: 26px;
+}
+
+.logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    backdrop-filter: blur(10px);
+}
+
+.hero-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+}
+
+.hero-title span {
+    background: linear-gradient(135deg, #ffffff 0%, #f472b6 50%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+    color: var(--text-muted);
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto 30px;
+}
+
+/* ===== NUEVO DISEÑO DE SALUDO - SIN MARCO ===== */
+.saludo-container {
+    margin: 0 auto 35px;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+}
+
+/* Fondo con degradado suave detrás de la imagen */
+.saludo-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.15));
+    filter: blur(20px);
+    animation: pulseBg 3s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes pulseBg {
+    0% { transform: scale(0.95); opacity: 0.6; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* La imagen se muestra completamente libre, sin marco que la encierre */
+.foto-saludo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    display: block;
+    filter: drop-shadow(0 10px 30px rgba(168, 85, 247, 0.3));
+    animation: flotar 4s ease-in-out infinite;
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Pequeño detalle decorativo: destello de luz */
+.saludo-container::after {
+    content: '✨';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 24px;
+    z-index: 2;
+    animation: girar 6s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+}
+
+@keyframes girar {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* BOTONES */
+.btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-main {
+    padding: 18px 40px;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.35);
+}
+
+.btn-main:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(236, 72, 153, 0.5);
+}
+
+.btn-secondary {
+    padding: 14px 28px;
+    font-size: 14px;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+.btn-whatsapp {
+    padding: 16px 32px;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+    width: 100%;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+}
+
+.btn-danger {
+    padding: 14px 24px;
+    font-size: 14px;
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fee2e2;
+}
+
+/* ================= PANEL DE SELECCIÓN ================= */
+.panel {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(20px, 4vw, 40px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.topbar-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(24px, 3.5vw, 32px);
+    font-weight: 800;
+}
+
+.topbar-sub {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.step {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-pink);
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(236, 72, 153, 0.1);
+    border: 1px solid rgba(236, 72, 153, 0.2);
+    white-space: nowrap;
+}
+
+/* TARJETAS DE ELECCIÓN */
+.eleccion-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.tarjeta-eleccion {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta-eleccion:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(168, 85, 247, 0.4);
+}
+
+.tarjeta-eleccion.seleccionada {
+    border-color: var(--accent-pink);
+    background: rgba(236, 72, 153, 0.12);
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+}
+
+.tarjeta-eleccion .imagen-tarjeta {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+}
+
+.tarjeta-eleccion h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.tarjeta-eleccion p {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* SECCIONES */
+.seccion {
+    margin-top: 30px;
+}
+
+.seccion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.seccion-title {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seccion-number {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* GRID PELÍCULAS */
+.grid-peliculas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 14px;
+}
+
+.pelicula-item {
+    cursor: pointer;
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.3s ease;
+}
+
+.pelicula-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 247, 0.5);
+}
+
+.pelicula-item.seleccionada {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+}
+
+.pelicula-item img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+}
+
+.peli-info {
+    padding: 8px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-pink);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.pelicula-item.seleccionada .check {
+    display: flex;
+}
+
+/* HORARIOS */
+.horas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.hora {
+    cursor: pointer;
+    padding: 12px 10px;
+    border-radius: 100px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.hora:hover {
+    color: white;
+    background: rgba(168, 85, 247, 0.15);
+    border-color: rgba(168, 85, 247, 0.4);
+}
+
+.hora.seleccionada {
+    color: white;
+    border-color: var(--accent-purple);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4));
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+}
+
+/* RESUMEN */
+.resumen {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.resumen-titulo {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent-pink);
+    margin-bottom: 12px;
+}
+
+.resumen-contenido {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.dato span {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+}
+
+.dato strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 2px;
+    color: #fff;
+}
+
+/* BOTONES DE ACCIÓN */
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 4, 10, 0.85);
+    backdrop-filter: blur(16px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+}
+
+.modal.activo {
+    display: flex;
+    animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(160deg, #1a152e, #0e0b1a);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.modal-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.modal h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.modal p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.confirmacion {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.confirmacion strong {
+    color: #e9d5ff;
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    opacity: 0;
+    z-index: 200;
+    padding: 12px 24px;
+    border-radius: 100px;
+    background: rgba(30, 27, 46, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+/* CONFETI */
+.confeti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    z-index: 300;
+    border-radius: 2px;
+    animation: caer 3s linear forwards;
+}
+
+@keyframes caer {
+    to {
+        transform: translateY(105vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .acciones {
+        flex-direction: column;
+    }
+    .acciones button {
+        width: 100%;
+    }
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .grid-peliculas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .tarjeta-eleccion .imagen-tarjeta {
+        height: 120px;
+    }
+    .saludo-container {
+        width: 160px;
+        height: 160px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- ========== INICIO ========== -->
+    <section class="pantalla activa" id="inicio">
+        <div class="inicio">
+            <div class="logo">
+                <div class="logo-icon">🎬</div>
+            </div>
+            
+            <br>
+            <div class="badge">✨ HOLA SEÑORA SOFI, ESPERO QUE ESTEN BIEN, SOLO PASABA POR AQUI</div>
+            
+            <h1 class="hero-title">Vengo a cumplir lo que he perdido <span>por motivos de U nose pago mi derrota</span> jajaja<br></h1>
+            <p class="hero-text">Sé que la espera fue larga... pero algunas aventuras valen la pena cuando se comparten con la persona correcta.</p>
+            
+            <!-- NUEVO DISEÑO DE SALUDO - SIN MARCO -->
+            <div class="saludo-container">
+                <img class="foto-saludo" src="SALUDO.png" alt="Foto de saludo" onerror="this.style.display='none'">
+            </div>
+            
+            <button class="btn btn-main" id="btnIngresar">Dale clic Aqui... ✨</button>
+        </div>
+    </section>
+
+    <!-- ========== SELECCIÓN ========== -->
+    <section class="pantalla" id="seleccion">
+        <div class="panel">
+
+            <div class="topbar">
+                <div>
+                    <h2 class="topbar-title">Elige , te dare 2 obsines Pelicula o Montaña rusa, tal vez note gusta las peliculas que hay en el cine</h2>
+                    <p class="topbar-sub">Elige una opción ❤️ </p>
+                </div>
+                <div class="step">PASO 1 DE 3</div>
+            </div>
+
+            <!-- CUADROS DE ELECCIÓN -->
+            <div class="eleccion-container">
+                <div class="tarjeta-eleccion" id="optCine">
+                    <img class="imagen-tarjeta" src="CINE.png" alt="Cine" onerror="this.style.display='none'">
+                    <h3>🎬 CINE</h3>
+                    <p>Elige tu película favorita</p>
+                </div>
+                <div class="tarjeta-eleccion" id="optMontana">
+                    <img class="imagen-tarjeta" src="RUSA.png" alt="Montaña Rusa" onerror="this.style.display='none'">
+                    <h3>🎢 MONTAÑA RUSA</h3>
+                    <p>Pura adrenalina y emoción</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN PELÍCULAS -->
+            <div class="seccion" id="seccionPeliculas">
+                <div class="seccion-header">
+                    <div class="seccion-title">🎬 ¿Qué película quieres ver?</div>
+                    <div class="seccion-number">Elige una</div>
+                </div>
+                <div class="grid-peliculas">
+                    <div class="pelicula-item" data-peli="Spider-Man: Un nuevo día">
+                        <img src="SPIDER.jpg" alt="Spider-Man">
+                        <div class="peli-info">Spider-Man</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="Backrooms: Sin salida">
+                        <img src="Backrooms.jpg" alt="Backrooms">
+                        <div class="peli-info">Backrooms</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="Habitación N° 13">
+                        <img src="habitacion-n-13.jpg" alt="Habitación 13">
+                        <div class="peli-info">Habitación 13</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="La Odisea">
+                        <img src="ODISEA.jpg" alt="La Odisea">
+                        <div class="peli-info">La Odisea</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="Minions & Monstruos">
+                        <img src="MINIONS.jpg" alt="Minions">
+                        <div class="peli-info">Minions</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="Moana">
+                        <img src="MOANA.jpg" alt="Moana">
+                        <div class="peli-info">Moana</div>
+                        <div class="check">✓</div>
+                    </div>
+                    <div class="pelicula-item" data-peli="Toy Story 5">
+                        <img src="TS5.jpg" alt="Toy Story 5">
+                        <div class="peli-info">Toy Story 5</div>
+                        <div class="check">✓</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN HORARIOS -->
+            <div class="seccion">
+                <div class="seccion-header">
+                    <div class="seccion-title">⏰ ¿A qué hora?</div>
+                    <div class="seccion-number">11:00 — 20:00</div>
+                </div>
+                <div class="horas" id="horas"></div>
+            </div>
+
+            <!-- RESUMEN -->
+            <div class="resumen">
+                <div class="resumen-titulo">✨ TU PLAN PERFECTO</div>
+                <div class="resumen-contenido">
+                    <div class="dato">
+                        <span>Plan</span>
+                        <strong id="resumenPlan">Sin elegir</strong>
+                    </div>
+                    <div class="dato">
+                        <span>Película / Aventura</span>
+                        <strong id="resumenDetalle">—</strong>
+                    </div>
+                    <div class="dato">
+                        <span>Hora</span>
+                        <strong id="resumenHora">Sin elegir</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTONES -->
+            <div class="acciones">
+                <button class="btn btn-danger" id="btnNo">No se realizará</button>
+                <button class="btn btn-secondary" id="btnVolver">← Volver</button>
+                <button class="btn btn-main" id="btnContinuar">Continuar ✨</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========== MODAL ========== -->
+    <div class="modal" id="modal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">🎢</div>
+            <h2>Entonces... ¿se quedo en eso?</h2>
+            <p>Mandas captura....la opcion que elegiste</p>
+            <div class="confirmacion">
+                <span id="finalPlan">🎬 Cine</span><br><br>
+                <strong id="finalDetalle">Película</strong><br><br>
+                ⏰ <strong id="finalHora">Hora</strong>
+            </div>
+            <button class="btn btn-whatsapp" id="btnWhatsApp">💬 Sí,</button>
+            <br><br>
+            <button class="btn btn-secondary" id="btnCerrar" style="width: 100%;">Todavía no...</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const TELEFONO = "59167290791";
+
+let plan = null; 
+let pelicula = null;
+let hora = null;
+
+// ELEMENTOS
+const inicio = document.getElementById("inicio");
+const seleccion = document.getElementById("seleccion");
+const btnIngresar = document.getElementById("btnIngresar");
+const btnVolver = document.getElementById("btnVolver");
+const btnNo = document.getElementById("btnNo");
+const btnContinuar = document.getElementById("btnContinuar");
+
+const optCine = document.getElementById("optCine");
+const optMontana = document.getElementById("optMontana");
+const seccionPeliculas = document.getElementById("seccionPeliculas");
+const peliculas = document.querySelectorAll(".pelicula-item");
+const horasContainer = document.getElementById("horas");
+const resumenPlan = document.getElementById("resumenPlan");
+const resumenDetalle = document.getElementById("resumenDetalle");
+const resumenHora = document.getElementById("resumenHora");
+
+const modal = document.getElementById("modal");
+const modalIcon = document.getElementById("modalIcon");
+const finalPlan = document.getElementById("finalPlan");
+const finalDetalle = document.getElementById("finalDetalle");
+const finalHora = document.getElementById("finalHora");
+const btnWhatsApp = document.getElementById("btnWhatsApp");
+const btnCerrar = document.getElementById("btnCerrar");
+const toast = document.getElementById("toast");
+
+// MOSTRAR PANTALLA
+function mostrar(pantalla) {
+    document.querySelectorAll(".pantalla").forEach(p => p.classList.remove("activa"));
+    pantalla.classList.add("activa");
+}
+
+// TOAST
+function mensaje(texto) {
+    toast.textContent = texto;
+    toast.classList.add("show");
+    clearTimeout(window.toastTimer);
+    window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+// RESETEAR SELECCIÓN DE PELÍCULAS
+function resetPeliculas() {
+    peliculas.forEach(p => p.classList.remove("seleccionada"));
+    pelicula = null;
+}
+
+// RESETEAR HORAS
+function resetHoras() {
+    document.querySelectorAll(".hora").forEach(h => h.classList.remove("seleccionada"));
+    hora = null;
+}
+
+// ACTUALIZAR RESUMEN
+function actualizarResumen() {
+    if (plan === 'cine') {
+        resumenPlan.textContent = '🎬 Cine';
+        resumenDetalle.textContent = pelicula || 'Sin elegir';
+    } else if (plan === 'montana') {
+        resumenPlan.textContent = '🎢 Montaña Rusa';
+        resumenDetalle.textContent = '¡Adrenalina!';
+    } else {
+        resumenPlan.textContent = 'Sin elegir';
+        resumenDetalle.textContent = '—';
+    }
+    resumenHora.textContent = hora || 'Sin elegir';
+}
+
+// ELECCIÓN DE PLAN
+function elegirPlan(tipo) {
+    plan = tipo;
+    document.querySelectorAll(".tarjeta-eleccion").forEach(el => el.classList.remove("seleccionada"));
+    
+    if (tipo === 'cine') {
+        optCine.classList.add("seleccionada");
+        optMontana.classList.remove("seleccionada");
+        seccionPeliculas.classList.remove("oculto"); 
+        resetPeliculas();
+        mensaje('🎬 Elegiste Cine - Selecciona una película');
+    } else if (tipo === 'montana') {
+        optMontana.classList.add("seleccionada");
+        optCine.classList.remove("seleccionada");
+        seccionPeliculas.classList.add("oculto"); 
+        resetPeliculas();
+        pelicula = 'Montaña Rusa';
+        mensaje('🎢 Elegiste Montaña Rusa - Solo elige la hora');
+    }
+    
+    resetHoras();
+    actualizarResumen();
+}
+
+// CLICK EN TARJETAS
+optCine.onclick = () => elegirPlan('cine');
+optMontana.onclick = () => elegirPlan('montana');
+
+// PELÍCULAS
+peliculas.forEach(item => {
+    item.onclick = () => {
+        if (plan !== 'cine') {
+            mensaje('⚠️ Primero selecciona "CINE" en el plan');
+            return;
+        }
+        peliculas.forEach(p => p.classList.remove("seleccionada"));
+        item.classList.add("seleccionada");
+        pelicula = item.dataset.peli;
+        actualizarResumen();
+        mensaje("🎬 Elegiste: " + pelicula);
+    };
+});
+
+// HORAS
+for (let h = 11; h <= 20; h++) {
+    const boton = document.createElement("button");
+    boton.className = "hora";
+    boton.textContent = h + ":00";
+    boton.onclick = () => {
+        if (!plan) {
+            mensaje('⚠️ Primero elige un plan (Cine o Montaña Rusa)');
+            return;
+        }
+        document.querySelectorAll(".hora").forEach(b => b.classList.remove("seleccionada"));
+        boton.classList.add("seleccionada");
+        hora = h + ":00";
+        actualizarResumen();
+        mensaje("⏰ Hora seleccionada: " + hora);
+    };
+    horasContainer.appendChild(boton);
+}
+
+// BOTÓN INGRESAR
+btnIngresar.onclick = () => {
+    mostrar(seleccion);
+    document.querySelectorAll(".tarjeta-eleccion").forEach(el => el.classList.remove("seleccionada"));
+    seccionPeliculas.classList.remove("oculto");
+    resetPeliculas();
+    resetHoras();
+    plan = null;
+    pelicula = null;
+    hora = null;
+    actualizarResumen();
+};
+
+// VOLVER
+btnVolver.onclick = () => mostrar(inicio);
+
+// NO SE REALIZARÁ
+btnNo.onclick = () => {
+    if (confirm("¿Seguro que no se realizará la actividad?")) {
+        plan = null;
+        pelicula = null;
+        hora = null;
+        document.querySelectorAll(".tarjeta-eleccion").forEach(el => el.classList.remove("seleccionada"));
+        resetPeliculas();
+        resetHoras();
+        seccionPeliculas.classList.remove("oculto");
+        actualizarResumen();
+        mensaje("❌ Está bien. Puedes volver cuando quieras.");
+    }
+};
+
+// CONTINUAR
+btnContinuar.onclick = () => {
+    if (!plan) {
+        mensaje("⚠️ Primero elige entre CINE o MONTAÑA RUSA");
+        return;
+    }
+    if (plan === 'cine' && !pelicula) {
+        mensaje("🎬 Elige una película");
+        return;
+    }
+    if (!hora) {
+        mensaje("⏰ Elige una hora");
+        return;
+    }
+
+    if (plan === 'cine') {
+        modalIcon.textContent = '🎬';
+        finalPlan.textContent = '🎬 Cine';
+        finalDetalle.textContent = pelicula;
+    } else {
+        modalIcon.textContent = '🎢';
+        finalPlan.textContent = '🎢 Montaña Rusa';
+        finalDetalle.textContent = '¡Adrenalina pura!';
+    }
+    finalHora.textContent = hora;
+    modal.classList.add("activo");
+};
+
+// CERRAR MODAL
+btnCerrar.onclick = () => modal.classList.remove("activo");
+
+// WHATSAPP
+btnWhatsApp.onclick = () => {
+    const fecha = new Date().toLocaleDateString("es-BO");
+    const planTexto = plan === 'cine' ? `🎞️ *Película:* ${pelicula}` : '🎢 *Montaña Rusa*';
+    const mensajeWhatsApp = 
+`🎬 *SORPENDE* ❤️
+
+Tengo una propuesta para nuestra próxima aventura.
+
+${planTexto}
+⏰ *Hora:* ${hora}
+📅 *Fecha:* ${fecha}
+
+✨ ¡Trato hecho! Nos vemos para nuestra aventura. ❤️`;
+
+    const url = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(mensajeWhatsApp);
+    crearConfeti();
+    setTimeout(() => {
+        window.open(url, "_blank");
+    }, 700);
+};
+
+// CONFETI
+function crearConfeti() {
+    for (let i = 0; i < 80; i++) {
+        const pieza = document.createElement("div");
+        pieza.className = "confeti";
+        pieza.style.left = Math.random() * 100 + "vw";
+        pieza.style.animationDelay = Math.random() * 1.5 + "s";
+        pieza.style.background = `hsl(${Math.random() * 360},80%,65%)`;
+        document.body.appendChild(pieza);
+        setTimeout(() => pieza.remove(), 4000);
+    }
+}
+
+actualizarResumen();
+</script>
+
+</body>
+</html>
